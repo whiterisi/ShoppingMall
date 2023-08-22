@@ -1,0 +1,11 @@
+
+
+input#kakaopay {
+background:url(/img/payment.png);
+background-repeat: no-repeat;
+width:100px;
+height:50px;
+border: 0;
+}
+
+

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="UTF-8" />
+<title>ASIANA</title>
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Construction Html5 Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Themefisher Constra HTML Template v1.0">
+  
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.png" />
+  
+  <!-- Themefisher Icon font -->
+  <link rel="stylesheet" href="../plugins/themefisher-font/style.css">
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+  
+  <!-- Animate css -->
+  <link rel="stylesheet" href="../plugins/animate/animate.css">
+  <!-- Slick Carousel -->
+  <link rel="stylesheet" href="../plugins/slick/slick.css">
+  <link rel="stylesheet" href="../plugins/slick/slick-theme.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script th:src="@{/js/signup.js}"></script>
+    <script>
+    	<!-- m이 있다면 alert로 띄워주기 -->
+	    $(document).ready(function() {
+	        let message = "[[${message}]]";
+	        if (message != "") {
+	            alert(message);
+	        } else {
+	        };
+	    });
+	</script>
+</head>
+
+<body id="body">
+
+<section class="signin-page account">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="block text-center">
+          <a class="logo" href="../index.html">
+            <img src="../img/logo.png" alt="">
+          </a>
+          <h2 class="text-center">Create Your Account</h2>
+          
+          <form class="text-left clearfix form" th:action="@{/user/signUp}" id="form" method="post">
+            <div class="form-group">
+	            <table>
+	            	<tr>
+	            		<td><input style="width: 300px;" type="text" class="form-control input"  placeholder="ID" name="userid" id="userid" required></td>
+	            		<td><span style="margin-right: 10px;"></span></td>
+	            		<td><button style="height: 44.2px;" type="button" id="checkId" class="btn btn-main btn-small">중복확인</button></td>
+	            		<td><span style="margin-right: 10px;"></span></td>
+	            		<td><span class="message" id="idMessage"></span></td>
+	            	</tr>
+	            </table>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control input"  placeholder="Password" name="passwd" id="passwd" required>
+            </div>
+            <div class="form-group">
+        	  <input type="password" class="form-control input"  placeholder="Confirm Password" name="passwdConfirm" id="passwdConfirm" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input"  placeholder="Username" name="username" >
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control input"  placeholder="Email" name="email">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input"  placeholder="Phone Number" name="phone">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-main text-center">Sign Up</button>
+            </div>
+          </form>
+          
+          <p class="mt-20">Do you have a Google Account?<a href="/oauth2/authorization/google" role="button"> Sign in with Google</a></p>
+          <p class="mt-20">Forgot your password?<a th:href="@{/email}"> Change Password</a></p>
+          <p class="mt-20">Already have an account? <a th:href="@{/user/login}">Login</a></p>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- 
+    Essential Scripts
+    =====================================-->
+    
+    <!-- Main jQuery -->
+    <script src="../plugins/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.1 -->
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Touchpin -->
+    <script src="../plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <!-- Instagram Feed Js -->
+    <script src="../plugins/instafeed/instafeed.min.js"></script>
+    <!-- Video Lightbox Plugin -->
+    <script src="../plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+    <!-- Count Down Js -->
+    <script src="../plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+
+    <!-- slick Carousel -->
+    <script src="../plugins/slick/slick.min.js"></script>
+    <script src="../plugins/slick/slick-animation.min.js"></script>
+
+    <!-- Main Js File -->
+    <script src="../js/script.js"></script>
+
+  </body>
+  </html>

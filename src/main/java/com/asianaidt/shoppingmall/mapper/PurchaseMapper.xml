@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asianaidt.shoppingmall.mapper.PurchaseMapper">
+
+
+   <select id="addPurchase" parameterType="PurchaseDAO" resultType="int">
+	    insert into public.purchase (userid, flightid, purchasedate, cnt, amount, status)
+        values(#{userid},#{flightid},#{purchasedate} , #{cnt}, #{amount}, 0)
+	    RETURNING purchaseid
+	</select>
+
+    <insert id="addPurchaseProduct" parameterType="arraylist">
+        insert into public.purchase_product(purchaseid, productid, cnt)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.purchaseid}, #{item.productid},  #{item.cnt})
+        </foreach>
+    </insert>
+
+
+    <select id="findAllPurchase" parameterType="int" resultType="PurchaseDTO" >
+        select purchase.purchaseid, purchase.purchasedate, purchase.flightid, purchase.userid,purchase.amount,purchase.status,  map.productid, map.name, map.brand, map.category, map.price, map.cnt, map.size
+        from public.purchase purchase
+        inner join (
+            select mid.purchaseid, product.productid, product.name, product.price, product.brand, product.category, mid.cnt, mid.size
+            from public.purchase_product mid
+            inner join public.product product
+            on mid.productid=product.productid) map
+        on map.purchaseid = purchase.purchaseid
+        where userid=#{userid}
+    </select>
+    <select id="findSimplePurchase" parameterType="int" resultType="PurchaseDAO" >
+        select distinct p.purchaseid, p.userid, p.flightid, p.purchasedate, p.amount, p.cnt, p.status
+        from public.purchase p
+        where p.userid=#{id}
+        order by purchaseid desc
+    </select>
+
+    <select id="findPurchaseById" parameterType="int" resultType="PurchaseDTO" >
+        select purchase.purchaseid, purchase.purchasedate, purchase.flightid, purchase.userid,purchase.amount, purchase.status, map.image, map.productid, map.name, map.brand, map.category, map.price, map.cnt, map.size
+        from public.purchase purchase
+        inner join (
+            select mid.purchaseid, product.image, product.productid, product.name, product.price, product.brand, product.category, mid.cnt, mid.size
+            from public.purchase_product mid
+            inner join public.product product
+            on mid.productid=product.productid
+            where mid.purchaseid=#{purchaseid}) map
+        on map.purchaseid = purchase.purchaseid
+    </select>
+    
+    <select id="findOne" parameterType="int" resultType="PurchaseDAO" >
+        select *
+        from public.purchase
+        where purchaseid=#{purchaseid}
+    </select>
+    
+    <select id="findPurchaseByFlightId" parameterType="string" resultType="PurchaseDTO" >
+        select purchase.purchaseid, purchase.purchasedate, purchase.flightid, purchase.userid,purchase.amount, purchase.status, map.image,  map.productid, map.name, map.brand, map.category, map.price, map.cnt, map.size
+        from public.purchase purchase
+        inner join (
+            select mid.purchaseid, product.image, product.productid, product.name, product.price, product.brand, product.category, mid.cnt, mid.size
+            from public.purchase_product mid
+            inner join public.product product
+            on mid.productid=product.productid) map
+        on map.purchaseid = purchase.purchaseid
+        where  purchase.flightid=#{flightid}
+    </select>
+</mapper>

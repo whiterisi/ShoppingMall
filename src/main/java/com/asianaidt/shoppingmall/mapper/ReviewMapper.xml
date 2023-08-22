@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asianaidt.shoppingmall.mapper.ReviewMapper">
+	<select id="boardList"  resultType="ReviewDTO">
+ 	  select id,order_num,title,product_Id,review_Content,user_id,score
+ 	  from REVIEW
+ 	  
+ 	</select>
+ 	
+	<insert id="reviewWrite" parameterType="ReviewDTO">
+		INSERT INTO REVIEW (
+			title,
+			user_id,
+		    ORDER_NUM
+		    ,PRODUCT_ID
+		    ,REVIEW_CONTENT
+		    ,SCORE
+		) VALUES (
+			#{title},
+			 #{user_id}
+			 ,0
+			,#{product_id}::Integer
+			,#{review_content}
+			,#{score}
+		)		
+	</insert>
+	
+	<update id="reviewModify">
+    UPDATE DL_REVIEW SET
+    	title = #{title}
+        ,REVIEW_CONTENT = #{review_Content}
+        ,SCORE = #{score}
+        
+        <if test="reviewImg != null">
+        ,REVIEW_IMG = #{review_IMG}
+        </if>
+        
+    WHERE
+        ORDER_NUM = ${order_num}    
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+	  
+ 	  delete from review
+ 	  where id = #{id}
+ 	  
+ 	</delete>
+ 	
+ 	<!-- multi delete
+ 	    delete from board
+ 	    where num in ( 4,3,5)
+ 	 -->
+ 	<delete id="boardMultiDelete" parameterType="arraylist">
+ 	  delete from review
+ 	  where id in 
+ 	  <foreach item="item"  collection="list" open="(" separator="," close=")" >
+          #{item}
+          <!-- #{item} 형변환
+             cast(#{item} as INTEGER)
+           -->
+      </foreach>
+ 	</delete>
+ 	 <select id="boardByNum" resultType="ReviewDTO" parameterType="int">
+ 	  select id,order_num,title,product_Id,review_Content,user_id,score
+ 	  from review
+ 	  where id = #{id}
+ 	</select>
+ 	
+ 	<select id="findReviewById" parameterType="int" resultType="ReviewDTO" >
+ 	select * 
+ 	from public.review
+ 	where product_id = #{productid}
+ 	</select>
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asianaidt.shoppingmall.mapper.CartMapper">
+
+
+
+	<!-- 
+	<select id="cartList" parameterType="string"
+		resultType="CartDAO">
+		select name, price, inventory, image, userid, 
+		from product
+		where productid
+		in (select gCode
+			from cart
+			where userid = #{userid})
+	</select>
+	-->
+	<select id="cartList" parameterType="string"
+		resultType="CartDAO">
+		select num, userid, gCode, gAmount, name as gName, price as gPrice, image as gImage,
+				 discount, inventory
+		from cart c inner join product p on p.productid = c.gCode
+		where c.userid = #{userid}
+		order by num
+	</select>
+	
+	<update id="updateCart" parameterType="hashmap">
+	   	update cart
+		set gAmount = cast(#{gAmount} as INTEGER )
+		where num = cast(#{num} as INTEGER )
+	</update>
+	<delete id="delCart" parameterType="int">
+	   delete from cart
+	   where num = cast(#{num} as INTEGER )
+	</delete>
+	
+	<delete id="delAllCart" parameterType="arraylist">
+		delete from cart
+		where num
+		IN
+		<foreach collection="list" item="item" open="(" separator=","
+			close=")">
+			cast(#{item} as INTEGER )
+		</foreach>
+	</delete>
+	
+	<select id="findCartList" parameterType="string" resultType="OrderDTO">
+		select num as id, gCode as productid, gAmount as amount, name, price as price, image as image,
+				(p.price*(100-p.discount)/100) as salePrice, (p.price*(100-p.discount)/100)*gAmount as sum
+		from cart c 
+		inner join product p 
+		on p.productid = c.gCode
+		where num in
+		<foreach collection="list" item="item" open="(" separator=","
+			close=")">
+			cast(#{item} as INTEGER )
+		</foreach>
+	</select>
+	
+	<select id="findTotalPrice" parameterType="string" resultType="int">
+		select sum( (p.price*(100-p.discount)/100)*gAmount)
+		from cart c 
+		inner join product p 
+		on p.productid = c.gCode
+		where num in 
+		<foreach collection="list" item="item" open="(" separator=","
+			close=")">
+			cast(#{item} as INTEGER )
+		</foreach>
+	</select>
+	
+	
+	
+</mapper>

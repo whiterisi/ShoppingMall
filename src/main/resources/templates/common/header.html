@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+</head>
+<body>
+<th:block th:fragment="header_fragment">
+    <th:block th:if="${session.user}==null">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand"  th:href ="@{/}">ASIANA AIRLINES</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href ="@{/user/login}" >Login</a>
+                        </li>
+
+                    </ul>
+                    <form class="d-flex" th:action="search" th:method="get">
+                    	<select name="search">
+                    		<option value="name">제품 명</option>
+                    		<option value="brand">브랜드</option>
+                    	</select>
+                        <input class="form-control me-2" type="search" name="searchInfo" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </th:block>
+
+    <th:block th:if="${session.user}!=null">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href ="@{/}">ASIANA AIRLINES</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href ="@{/}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href ="@{/purchase}">Order</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href ="@{/user/mypage}">MyPage</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" th:href ="@{/cartList}" >장바구니</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href ="@{/user/logout}">LogOut</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" th:action="search" th:method="get">
+                    	<select name="search">
+                    		<option value="name">제품 명</option>
+                    		<option value="brand">브랜드</option>
+                    	</select>
+                        <input class="form-control me-2" type="search" name="searchInfo" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </th:block>
+</th:block >
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>

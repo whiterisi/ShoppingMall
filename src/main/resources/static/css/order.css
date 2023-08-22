@@ -1,0 +1,40 @@
+
+
+html,body {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+.panel-faq-container {
+  margin-bottom: -16px;
+}
+.panel-faq-title {
+  cursor: pointer;
+    border: none;
+  height:50px;
+}
+.panel-faq-answer {
+  height: 0;
+  overflow: hidden;
+    border: none;
+  /* 변화가 시작되는 쪽에다가 transition 적용해준다 0 -> 300px 
+  왜? 닫기 버튼을 누를 때 변화가 티남 */
+  transition: all 1s;
+}
+#btn-all-close {
+  margin-bottom: 10px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 25px;
+  float: right;
+}
+#btn-all-close:hover {
+  background-color: yellow;
+  color: #000;
+  transition: all 0.35s;
+}
+.active {
+  display: block;
+  /* 높이를 정해줘야지만 transition이 적용됨 */
+  height: 250px;
+};

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="UTF-8">
+<title>ASIANA</title>
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Construction Html5 Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Themefisher Constra HTML Template v1.0">
+  
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.png" />
+  
+  <!-- Themefisher Icon font -->
+  <link rel="stylesheet" href="../plugins/themefisher-font/style.css">
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+  
+  <!-- Animate css -->
+  <link rel="stylesheet" href="../plugins/animate/animate.css">
+  <!-- Slick Carousel -->
+  <link rel="stylesheet" href="../plugins/slick/slick.css">
+  <link rel="stylesheet" href="../plugins/slick/slick-theme.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <script th:src="@{/js/signup.js}"></script>
+    <script>
+    	<!-- m이 있다면 alert로 띄워주기 -->
+	    $(document).ready(function() {
+	        let message = "[[${message}]]";
+	        if (message != "") {
+	            alert(message);
+	        } else {
+	        };
+	    });
+	</script>
+</head>
+
+<body id="body">
+
+<section class="signin-page account">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="block text-center">
+          <a class="logo" href="../index.html">
+            <h1>ASIANA</h1>
+          </a>
+          <h3 class="text-center">Welcome Back</h3>
+          <form class="text-left clearfix form" th:action="@{/user/login}" id="form2" method="post">
+            <div class="form-group">
+              <input type="text" name="userid" class="form-control input" placeholder="ID">
+            </div>
+            <div class="form-group">
+              <input type="password" name="passwd" class="form-control input" placeholder="Password">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-main text-center" >Login</button>
+            </div>
+          </form>
+          
+          <p class="mt-20"><a href="/oauth2/authorization/google" role="button"><img  src="/img/google.png"></a></p>
+          <p class="mt-20">Forgot your password?<a th:href="@{/email}"> Send Email </a></p>
+          <p class="mt-20">New in this site?<a th:href="@{signup}"> Create New Account</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- 
+    Essential Scripts
+    =====================================-->
+    
+    <!-- Main jQuery -->
+    <script src="../plugins/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.1 -->
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Touchpin -->
+    <script src="../plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <!-- Instagram Feed Js -->
+    <script src="../plugins/instafeed/instafeed.min.js"></script>
+    <!-- Video Lightbox Plugin -->
+    <script src="../plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+    <!-- Count Down Js -->
+    <script src="../plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+
+    <!-- slick Carousel -->
+    <script src="../plugins/slick/slick.min.js"></script>
+    <script src="../plugins/slick/slick-animation.min.js"></script>
+
+    <!-- Main Js File -->
+    <script src="../js/script.js"></script>
+    
+
+
+  </body>
+  </html>

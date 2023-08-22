@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asianaidt.shoppingmall.mapper.ProductMapper">
+
+	<select id="findByProductID" parameterType="int" resultType="ProductDAO">
+		select *
+		from public.product 
+		where productid = #{productid}
+	</select>
+	
+	<select id="getList" resultType="ProductDAO">
+		select *
+		from public.product
+		<!-- 
+		<![CDATA[where productid < 30]]>
+		-->
+	</select>
+	
+	<select id="getListByCategory" parameterType="int" resultType="ProductDAO">
+		select *
+		from public.product 
+		where category = #{categoryid}
+	</select>
+	
+	<select id="sortList" parameterType="hashmap" resultType="ProductDAO">
+		select * from public.product where category = CAST(#{categoryid} as integer) 
+		<if test = "sortvalue == 1">
+			order by price desc;
+		</if>
+		<if test = "sortvalue == 2">
+			order by price asc;
+		</if>
+		<if test = "sortvalue == 3">
+			order by sales desc;
+		</if>
+		<if test = "sortvalue == 4">
+			order by inventory desc;
+		</if>
+		<if test = "sortvalue == 5">
+			order by name asc;
+		</if>
+	</select>
+	
+	<insert id="addCart" parameterType="hashmap">
+		insert into cart (userid, gCode, gAmount)
+		values (#{userid}, CAST(#{productid} as int),  CAST(#{gAmount} as int))
+	</insert>
+	
+	<select id="searchList" parameterType="hashmap" resultType="ProductDAO">
+		select * from public.product
+		<if test = "search == 'name'">
+			where name LIKE CONCAT('%',#{searchInfo},'%')
+		</if> 
+		<if test = "search == 'brand'">
+			where brand = #{searchInfo}
+		</if>  
+	</select>
+
+</mapper>
